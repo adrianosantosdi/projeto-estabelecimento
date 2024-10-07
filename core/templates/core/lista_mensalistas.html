@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+{% load bootstrap %}
+
+{% block main %}
+
+<div class="row">
+    <div class="col">
+        <h1>Lista Mensalista</h1>
+
+        <table class="table">
+            <thead>
+              <tr>
+                <th scope="col">ID</th>
+                <th scope="col">VEICULO</th>
+                <th scope="col">INICIO</th>
+                <th scope="col">VALOR MÊS</th>
+              </tr>
+            </thead>
+            <tbody>
+                {% for mensalista in mensalistas %}
+              <tr>
+                <th scope="row">{{ mensalista.id }}</th>
+                <td><a href="{% url 'core_lista_mensalista_update' mensalista.id%}">{{ mensalista.veiculo }}</a></td>
+                <td>{{ mensalista.inicio }}</td>
+                <td>{{ mensalista.valor_mes }}</td>
+              </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+
+        <form action="{% url 'core_lista_mensalista_novo' %}" method="post">
+
+            {% csrf_token %}
+
+            {{ form|bootstrap }}
+
+            <button class="btn btn-primary">Cadastrar</button>
+        </form>
+
+    </div>
+</div>
+
+
+{% endblock %}

@@ -1,0 +1,47 @@
+{% extends 'base.html' %}
+{% load bootstrap %}
+
+{% block main %}
+
+<div class="row">
+    <div class="col">
+        <h1>Lista MovRotativo</h1>
+
+        <table class="table">
+            <thead>
+              <tr>
+                <th scope="col">ID</th>
+                <th scope="col">CHECKIN</th>
+                <th scope="col">CHECOUNT</th>
+                <th scope="col">VALOR DA HORA</th>
+                <th scope="col">VEICULO</th>
+                <th scope="col">PAGO</th>
+              </tr>
+            </thead>
+            <tbody>
+                {% for movroot in mov_root %}
+              <tr>
+                <th scope="row">{{ movroot.id }}</th>
+                <td><a href="{% url 'core_movrotativo_update' movroot.id%}">{{ movroot.checkin }}</a></td>
+                <td>{{ movroot.checkout }}</td>
+                <td>{{ movroot.valor_hora }}</td>
+                <td>{{ movroot.pago }}</td>
+              </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+
+        <form action="{% url 'core_movrotativo_novo' %}" method="post">
+
+            {% csrf_token %}
+
+            {{ form|bootstrap }}
+
+            <button class="btn btn-primary">Cadastrar</button>
+        </form>
+
+    </div>
+</div>
+
+
+{% endblock %}
